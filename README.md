@@ -8,6 +8,9 @@
 
 Bounter is a Python library, written in C, for extremely fast probabilistic counting of item frequencies in massive datasets, using only a small fixed memory footprint.
 
+## Fork Changes
+ - HashTable did not allow negative counts. `ht.increment` now allows negative update values.
+ 
 ## Why Bounter?
 
 Bounter lets you count how many times an item appears, similar to Python's built-in `dict` or `Counter`:
