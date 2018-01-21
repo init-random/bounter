@@ -323,13 +323,7 @@ static void HT_VARIANT(_prune_int)(HT_TYPE *self, long long boundary)
 static PyObject *
 HT_VARIANT(_increment_obj)(HT_TYPE *self, char *data, Py_ssize_t dataLength, long long increment)
 {
-    if (increment < 0)
-    {
-        char * msg = "Increment must be positive!";
-        PyErr_SetString(PyExc_ValueError, msg);
-        return NULL;
-    }
-    else if (increment == 0)
+    if (increment == 0)
     {
         Py_INCREF(Py_None);
         return Py_None;
@@ -339,11 +333,21 @@ HT_VARIANT(_increment_obj)(HT_TYPE *self, char *data, Py_ssize_t dataLength, lon
 
     if (cell)
     {
-        if (cell->count > LLONG_MAX - increment)
-        {
-            char * msg = "Counter overflow!";
-            PyErr_SetString(PyExc_OverflowError, msg);
-            return NULL;
+        if (increment > 0) {
+            if (cell->count > LLONG_MAX - increment)
+            {
+                char * msg = "Counter overflow! max";
+                PyErr_SetString(PyExc_OverflowError, msg);
+                return NULL;
+            }
+        }
+        else {
+            if (cell->count < LLONG_MIN - increment)
+            {
+                char * msg = "Counter overflow! min";
+                PyErr_SetString(PyExc_OverflowError, msg);
+                return NULL;
+            }
         }
 
         self->total += increment;

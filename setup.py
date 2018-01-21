@@ -24,7 +24,7 @@ def read(fname):
         return readfile.read()
 
 setup(
-    name='bounter',
+    name='kounter',
     version='1.0.1',
     description='Counter for large datasets',
     long_description=read('README.rst'),
