@@ -336,7 +336,7 @@ HT_VARIANT(_increment_obj)(HT_TYPE *self, char *data, Py_ssize_t dataLength, lon
         if (increment > 0) {
             if (cell->count > LLONG_MAX - increment)
             {
-                char * msg = "Counter overflow! max";
+                char * msg = "Counter overflow!";
                 PyErr_SetString(PyExc_OverflowError, msg);
                 return NULL;
             }
@@ -344,7 +344,7 @@ HT_VARIANT(_increment_obj)(HT_TYPE *self, char *data, Py_ssize_t dataLength, lon
         else {
             if (cell->count < LLONG_MIN - increment)
             {
-                char * msg = "Counter overflow! min";
+                char * msg = "Counter overflow!";
                 PyErr_SetString(PyExc_OverflowError, msg);
                 return NULL;
             }
